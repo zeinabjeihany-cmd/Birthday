@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تولد ۱۹ سالگی</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Vazirmatn',sans-serif;
+}
+
+body{
+background:
+linear-gradient(rgba(15,0,0,.88),rgba(15,0,0,.92)),
+url('https://images.unsplash.com/photo-1518895949257-7621c3c786d7?q=80&w=1600');
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+color:#fff;
+overflow-x:hidden;
+min-height:100vh;
+}
+
+.rain{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:0;
+}
+
+.drop{
+position:absolute;
+width:1px;
+height:80px;
+background:linear-gradient(transparent,#ffffff55);
+animation:rain linear infinite;
+}
+
+@keyframes rain{
+from{
+transform:translateY(-120px);
+}
+to{
+transform:translateY(120vh);
+}
+}
+
+.container{
+position:relative;
+z-index:2;
+max-width:1100px;
+margin:auto;
+padding:50px 20px;
+}
+
+.hero{
+text-align:center;
+margin-top:30px;
+margin-bottom:50px;
+}
+
+.hero h1{
+font-size:3.5rem;
+color:#d4af37;
+font-weight:600;
+letter-spacing:2px;
+text-shadow:0 0 20px rgba(212,175,55,.3);
+}
+
+.hero p{
+margin-top:15px;
+font-size:1.1rem;
+color:#e8d9d9;
+}
+
+.card{
+background:rgba(40,0,0,.55);
+backdrop-filter:blur(8px);
+border:1px solid rgba(212,175,55,.25);
+border-radius:25px;
+padding:35px;
+box-shadow:
+0 0 35px rgba(0,0,0,.5),
+0 0 20px rgba(212,175,55,.12);
+margin-bottom:40px;
+}
+
+.photo-frame{
+display:flex;
+justify-content:center;
+margin:30px 0;
+}
+
+.photo-frame img{
+width:100%;
+max-width:500px;
+border-radius:20px;
+border:6px solid #d4af37;
+box-shadow:
+0 0 35px rgba(212,175,55,.35),
+0 0 70px rgba(0,0,0,.5);
+}
+
+.section-title{
+color:#d4af37;
+font-size:1.8rem;
+margin-bottom:20px;
+text-align:center;
+}
+
+.poem{
+line-height:2.4;
+font-size:1.15rem;
+text-align:center;
+white-space:pre-line;
+min-height:340px;
+}
+
+.message{
+line-height:2.2;
+font-size:1.2rem;
+text-align:center;
+min-height:90px;
+}
+
+.music-box{
+display:flex;
+justify-content:center;
+margin:30px 0;
+}
+
+.music-btn{
+background:#7b1113;
+color:white;
+border:none;
+padding:15px 35px;
+border-radius:50px;
+font-size:1rem;
+cursor:pointer;
+transition:.3s;
+}
+
+.music-btn:hover{
+transform:translateY(-3px);
+background:#a1191d;
+}
+
+.rose-left,
+.rose-right{
+position:fixed;
+font-size:80px;
+opacity:.12;
+z-index:1;
+}
+
+.rose-left{
+left:20px;
+top:100px;
+}
+
+.rose-right{
+right:20px;
+bottom:100px;
+}
+
+.footer{
+text-align:center;
+padding:30px;
+color:#d7c3c3;
+font-size:.95rem;
+}
+
+.cursor{
+display:inline-block;
+animation:blink .7s infinite;
+}
+
+@keyframes blink{
+50%{
+opacity:0;
+}
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:2.2rem;
+}
+
+.poem{
+font-size:1rem;
+}
+
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="rain" id="rain"></div>
+
+<div class="rose-left">🌹</div>
+<div class="rose-right">🌹</div>
+
+<div class="container">
+
+<div class="hero">
+<h1>نوزدهمین بهار زندگی</h1>
+<p>برای روزهایی که هنوز نیامده‌اند و رویاهایی که در راه‌اند...</p>
+</div>
+
+<div class="card">
+
+<div class="section-title">شعر</div>
+
+<div class="poem">
+<span id="poem"></span><span class="cursor">|</span>
+</div>
+
+</div>
+
+<div class="photo-frame">
+<img src="birth.jpg" alt="birthday">
+</div>
+
+<div class="music-box">
+<button class="music-btn" onclick="toggleMusic()">
+🎵 پخش / توقف موسیقی
+</button>
+</div>
+
+<audio id="music">
+<source src="https://cdn.imgurl.ir/uploads/g076898_Andrea_Bocelli_-_Besame_Mucho.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+
+<div class="section-title">پیام تولد</div>
+
+<div class="message">
+<span id="message"></span>
+</div>
+
+</div>
+
+<div class="footer">
+با آرزوی روزهایی روشن‌تر از باران بهاری و خاطراتی ماندگارتر از زمان
+</div>
+
+</div>
+
+<script>
+
+const poemText=`
+
+زندگی نیست بجز نم نم باران بهار
+
+زندگی نیست بجز دیدن یار
+
+زندگی نیست بجز عشق
+بجز حرف محبت به کسی
+
+ورنه هر خار و خسی
+زندگی کرده بسی
+
+زندگی تجربه‌ی تلخ فراوان دارد
+
+دو سه تا کوچه و پس کوچه
+
+و اندازه‌ی یک عمر بیابان دارد
+
+ما چه کردیم
+و چه خواهیم کرد
+
+در این فرصت کم!؟
+`;
+
+const messageText=`
+امیدوارم ۱۹ سالگیت
+پر از لحظه‌های شاد باشه،
+آدم‌های خوب سر راهت قرار بگیرن،
+و کلی تجربه‌ی جدید و قشنگ
+برای ساختن آینده‌ات به دست بیاری.
+
+تولدت مبارک 🌹
+`;
+
+function typeWriter(element,text,speed,callback){
+
+let i=0;
+
+function typing(){
+
+if(i<text.length){
+
+element.innerHTML+=text.charAt(i);
+i++;
+
+setTimeout(typing,speed);
+
+}else if(callback){
+
+callback();
+
+}
+
+}
+
+typing();
+
+}
+
+window.onload=()=>{
+
+typeWriter(
+document.getElementById("poem"),
+poemText,
+60,
+()=>{
+typeWriter(
+document.getElementById("message"),
+messageText,
+55
+);
+}
+);
+
+createRain();
+
+};
+
+function toggleMusic(){
+
+const music=document.getElementById("music");
+
+if(music.paused){
+
+music.play();
+
+}else{
+
+music.pause();
+
+}
+
+}
+
+function createRain(){
+
+const rain=document.getElementById("rain");
+
+for(let i=0;i<140;i++){
+
+let drop=document.createElement("div");
+
+drop.classList.add("drop");
+
+drop.style.left=Math.random()*100+"%";
+
+drop.style.animationDuration=
+(0.6+Math.random()*0.8)+"s";
+
+drop.style.opacity=Math.random();
+
+drop.style.animationDelay=
+Math.random()*5+"s";
+
+rain.appendChild(drop);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
